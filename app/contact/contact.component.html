@@ -1,0 +1,75 @@
+<div class="container" style="padding-top: 100px;">
+    <p class="mb-0" style="font-family: 'Cookie';font-weight: bold;font-size: 50px;text-align: center;"> Inquire for
+        services</p>
+    <form>
+        <div class="form-group">
+            <label for="exampleInputEmail1" class="mt-0 pt-0">Name:<span class="required"
+                    style="color: red;">*</span></label>
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="fname" name="fname" #fname="ngModel"
+                        [(ngModel)]="currentUser.fname" placeholder="First Name" required>
+                    <p *ngIf="fname.invalid && fname.touched" style="color: red;">First Name is reqired</p>
+
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="mname" name="mname" #mname="ngModel"
+                        [(ngModel)]="currentUser.mname" placeholder="Middal Name" required>
+                    <p *ngIf="mname.invalid && mname.touched" style="color: red;">Middle Name is reqired</p>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="lname" name="lname" #lname="ngModel"
+                        [(ngModel)]="currentUser.lname" placeholder="last Name" required>
+                    <p *ngIf="lname.invalid && lname.touched" style="color: red;">Last Name is required</p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address<span class="required" style="color: red;">*</span></label>
+            <input type="email" class="form-control" name="email" id="exampleInputEmail1"
+                [(ngModel)]="currentUser.email" #email="ngModel" aria-describedby="emailHelp" placeholder="Enter email"
+                required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+                <div *ngIf="email.errors?.['required']" class="req ml-2 nunito">
+                    <p style="color: red;">E-mail is required.</p>
+                </div>
+                <div *ngIf="email.errors?.['pattern']" class="req ml-2 nunito">
+                    <p style="color: red;">Invalid email format.</p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone:<span class="required" style="color: red;">*</span></label>
+            <input type="number" class="form-control" name="phone" #phone="ngModel" [(ngModel)]="currentUser.phone"
+                id="phone" placeholder="Enter phone number" required pattern="[0-9]{10}">
+            <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="text-danger nunito">
+                <div *ngIf="phone.errors?.['required']" class="req ml-2 nunito">
+                    <p style="color: red;">phone number is required.</p>
+                </div>
+                <div *ngIf="phone.errors?.['pattern']" class="req ml-2 nunito">
+                    <p style="color: red;">phone number must be 10 digits.</p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Select the service you need:<span class="required"
+                    style="color: red;">*</span></label>
+            <select class="form-control" id="Select1">
+                <option>Birthday Party</option>
+                <option>Business Meeting</option>
+                <option>Wedding and Reception</option>
+                <option>Corporate Catering</option>
+                <option>Outdoor Catering</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="guest">Expected number of guests:<span class="required" style="color: red;">*</span></label>
+            <input type="number" class="form-control" id="guest" name="guest" #guest="ngModel"
+                [(ngModel)]="currentUser.noOfGuests" placeholder="Expected number of guests" required>
+            <p *ngIf="guest.invalid && guest.touched" style="color: red;">Number of Guest is reqired</p>
+        </div>
+
+        <!-- <button type="submit" class="btn btn-primary" (click)="Submit($event)">Submit</button> -->
+        <button type="submit" class="btn" (click)="Submit()">Submit</button>
+    </form>
+</div>

@@ -1,0 +1,141 @@
+<div class="container mt-n4">
+  <h4>Our Menu</h4>
+
+  <div class="row">
+    <div class="search nunito mr-2 ml-2">
+      <input type="text" [(ngModel)]="searchTerm" (input)="search()" placeholder="Search">
+    </div>
+    <div class="tags mt-1 nunito">
+      <button (click)="filterByTag('')">All</button>
+      <button (click)="filterByTag('breakfast')">Gujarati Breakfast</button>
+      <button (click)="filterByTag('meal')">Meals</button>
+      <button (click)="filterByTag('Drinks')">Drinks</button>
+      <button (click)="filterByTag('dessert')">Dessert</button>
+    </div>
+
+    <div class="dropdown show mb-2 mr-1 nunito">
+      <a class="button dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        Category
+        <!-- : {{selectedTag}} -->
+      </a>
+
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" (click)="filterByTag('san')">Sandwitch</a>
+        <a class="dropdown-item" (click)="filterByTag('si')">South Indian</a>
+        <a class="dropdown-item" (click)="filterByTag('chinese')">Chinese</a>
+      </div>
+    </div>
+
+    <div class="dropdown show mb-2 mr-1 nunito">
+      <a class="button dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        Sort By: {{ selectedSortOption }}
+      </a>
+
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" (click)="sortHighToLow()">Price:High to Low</a>
+        <a class="dropdown-item" (click)="sortLowToHigh()">Price:Low to High</a>
+        <a class="dropdown-item" (click)="sortByNameAZ()">A-Z</a>
+        <a class="dropdown-item" (click)="sortByNameZA()">Z-A</a>
+      </div>
+    </div>
+  </div>
+  <div class="noMatch mt-0 nunito" *ngIf="products.length === 0; else searchResults" style="color: darkgray;">
+    <!-- No matching products found. -->
+    <img src="../../assets/Images/Asset1.svg" class="img-fluid">
+    <p style="font-weight: bold;font-size: 30px;" class="mb-0 mt-3">SORRY!</p>
+    <p>Your Searched product not found</p>
+  </div>
+
+  <ng-template #searchResults>
+    <div class=" row flex-row justify-content-around" data-name="privew">
+
+      <div *ngFor="let product of products; index as i">
+        <div class="card nunito" style="width: 16rem;">
+          <div>
+            <img src={{product.image}} class="card-img-top" alt="...">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title" style="height: 40px;">{{product.productName}}</h5>
+            <div class="row ml-1" style="height: 25px;">
+              <div>
+                <p class="card-text">Price: {{product.prize|currency:'INR'}}</p>
+              </div>
+              <div class="col float-right"> <svg width="20" height="20" viewBox="0 0 20 20" fill="none" role="img"
+                  aria-hidden="true" strokeColor="rgba(2, 6, 12, 0.92)" fillColor="rgba(2, 6, 12, 0.92)">
+                  <circle cx="10" cy="10" r="9" fill="url(#StoreRating20_svg__paint0_linear_32982_71567)"></circle>
+                  <path
+                    d="M10.0816 12.865C10.0312 12.8353 9.96876 12.8353 9.91839 12.865L7.31647 14.3968C6.93482 14.6214 6.47106 14.2757 6.57745 13.8458L7.27568 11.0245C7.29055 10.9644 7.26965 10.9012 7.22195 10.8618L4.95521 8.99028C4.60833 8.70388 4.78653 8.14085 5.23502 8.10619L8.23448 7.87442C8.29403 7.86982 8.34612 7.83261 8.36979 7.77777L9.54092 5.06385C9.71462 4.66132 10.2854 4.66132 10.4591 5.06385L11.6302 7.77777C11.6539 7.83261 11.706 7.86982 11.7655 7.87442L14.765 8.10619C15.2135 8.14085 15.3917 8.70388 15.0448 8.99028L12.7781 10.8618C12.7303 10.9012 12.7095 10.9644 12.7243 11.0245L13.4225 13.8458C13.5289 14.2757 13.0652 14.6214 12.6835 14.3968L10.0816 12.865Z"
+                    fill="white"></path>
+                  <defs>
+                    <linearGradient id="StoreRating20_svg__paint0_linear_32982_71567" x1="10" y1="1" x2="10" y2="19"
+                      gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#21973B"></stop>
+                      <stop offset="1" stop-color="#128540"></stop>
+                    </linearGradient>
+                  </defs>
+                </svg>
+                {{product.rating}}
+              </div>
+            </div>
+
+            <ng-template [ngIf]="product.availability == true" [ngIfElse]="notAvailable">
+              <div class="col pl-0 pr-0">
+                <a (click)="showPreview(i)" class="btn btn-primary pavan" style="width: 100%;bottom: 0;">View
+                  Details</a>
+              </div>
+            </ng-template>
+            <ng-template #notAvailable>
+              <p><b class="nunito">Sorry, not available at the moment!</b></p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div class="active d-md-none mr-5 float-right">
+    <!-- <button></button> -->
+    <a class="cart_icon" routerLink="/cart" style="color: black;" class="btn">
+      <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+      <div class="cart_value">{{cartItem}}</div>
+    </a>
+  </div>
+
+  <div class="product-preview" *ngIf="selectedProduct !== null">
+    <div class="priv active nunito mt-5" data-target="privew">
+      <div class="row mt-0">
+        <p class="nunito ml-3" style="font-size: 20px;font-weight: bold;">Product Details</p>
+        <i class="fas fa-times mr-0 mt-n1" (click)="closePreview()"></i>
+      </div>
+      <div class="card" data-target="privew" style="width: 16rem;">
+
+        <!-- <i class="fas fa-times" (click)="closePreview()"></i> -->
+        <img src={{selectedProduct.image}} class="card-img-top" style="height: 208px;" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{selectedProduct.productName}}</h5>
+          <div>
+            <p class="card-text" style="color: #E36414;font-weight: bold;font-size: x-large;">
+              {{selectedProduct.prize|currency:'INR'}}</p>
+            <p>Detail:{{selectedProduct.productDescription}}</p>
+
+          </div>
+          <ng-template [ngIf]="selectedProduct.availability == true" [ngIfElse]="notAvailable">
+            <div class="col" style="padding-left: 0px;">
+              <button type="button" class="dec ml-0"><i class="fa fa-minus" (click)="dec(selectedProduct)"></i></button>
+              {{selectedProduct.qnt}}
+
+              <button type="button" class="inc"><i class="fa fa-plus" (click)="inc(selectedProduct)"></i></button>
+              <button (click)="addCart(selectedProduct)" class="btn btn-primary pavan"
+                style="background-color: #E36414; margin-left: 10px; border: none;">Add to cart</button>
+              <!-- <a (click)="addCart(selectedProduct)" class="btn btn-primary pavan" style="background-color: grey; margin-left: 10px; border: none;">Add to cart</a> -->
+            </div>
+          </ng-template>
+          <ng-template #notAvailable>
+            <p><b>Sorry, not available at the moment!</b></p>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,95 @@
+table {
+  font-family: "nunito";
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #ccc;
+  background-color: white;
+  text-align: center;
+  padding: 8px;
+}
+
+  label ,p {
+    font-family: "nunito";
+  }
+
+  .btn {
+    color: white;
+    background-color: #E36414;
+  }
+
+  .btn:hover {
+    color: white;
+    background-color: #E36414;
+    box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    
+  }
+
+
+  /* newwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww billllllllllllllllllll */
+
+  /* body {
+    font-family: "nunito";
+    margin: 0;
+    padding: 0;
+} */
+
+.invoice {
+    font-family: "nunito";
+    width: 80%;
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* .company-info {
+    flex: 1;
+} */
+
+.logo img {
+    max-width: 200px;
+    /* float: right; */
+    padding-right: 10px;
+}
+
+.details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+/* 
+.left-details {
+    flex: 1;
+} */
+
+.client-details {
+    flex: 1;
+}
+
+.table {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+
+table th {
+    background-color: #f2f2f2;
+}

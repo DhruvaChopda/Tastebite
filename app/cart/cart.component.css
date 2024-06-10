@@ -1,0 +1,72 @@
+table {
+    font-family: "nunito";
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #ccc;
+    background-color: white;
+    text-align: center;
+    padding: 8px;
+  }
+img {
+    justify-content: center;
+    border-radius: 10px;
+    height: 100px;
+    width: 150px;
+}
+
+.btn {
+    color: white;
+    background-color: #E36414;
+}
+
+
+.btn:hover {
+  color: white;
+  background-color: #E36414;
+  box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  
+}
+
+.noMatch{
+  font-weight: bolder;
+  text-align: center;
+}
+
+.noMatch img{
+  height: 300px;
+  width: auto;
+  text-align: center;
+  padding-left: 50px;
+  margin-top: 40px;  
+}
+
+.custom-img,
+.container {
+  padding-top: 130px;
+}
+
+
+.nunito {
+  font-family: "Nunito";
+}
+
+.in {
+  border: 1px solid rgb(239, 187, 187);
+  background-color: white;
+  border-radius: 20%;
+}
+
+.delete {
+  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 15%;
+}
+.btn1{
+  border: 1px solid rgb(239, 187, 187);
+  background-color: white;
+  color:black;
+  /* border-radius: 10%; */
+}

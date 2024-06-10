@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+ 
+
+.parent{
+    background-color: white;
+    /* background: url("../../assets/Images/bg2.jpg"); */
+    /* background: linear-gradient(to right, #e2e2e2, #c9d6ff); */
+    /* background: linear-gradient(to right, #e2e2e2,#e8b16d ); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    padding-top: 100px;
+}
+
+.container{
+    background-color: #fff;
+    border-radius: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.30);
+    position: relative;
+    /* overflow: hidden; */
+    width: auto;
+    /* width: 768px; */
+    max-width: 100%;
+    /* min-height: 480px; */
+    height: auto;
+    padding-right: 100px;
+    padding-left: 100px;
+}
+
+.container p{
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.3px;
+    margin: 20px 0;
+}
+
+.container span{
+    font-size: 12px;
+}
+
+.container a{
+    /* color: #333; */
+    font-size: 13px;
+    text-decoration: none;
+    margin: 15px 0 10px;
+}
+
+.container button{
+    /* background-color: #512da8; */
+    background-color: #E36414;
+    color: #fff;
+    font-size: 12px;
+    padding: 10px 45px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.container button:hover {
+    box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.container form{
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    height: 100%;
+}
+
+.container input{
+    background-color: #eee;
+    border: none;
+    margin: 8px 0;
+    padding: 10px 15px;
+    font-size: 13px;
+    border-radius: 8px;
+    width: 100%;
+    outline: none;
+}
+
+@keyframes move{
+    0%, 49.99%{
+        opacity: 0;
+        z-index: 1;
+    }
+    50%, 100%{
+        opacity: 1;
+        z-index: 5;
+    }
+}
+ 
+.nunito {
+    font-family: "Nunito";
+}
+
+
+
+
+
+/* 
+.social-icons{
+    margin: 20px 0;
+}
+
+.social-icons a{
+    border: 1px solid #ccc;
+    border-radius: 20%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 3px;
+    width: 40px;
+    height: 40px;
+    transition: all 0.5s;
+}
+
+.social-icons a:hover{
+    scale: 1.3;
+    border: 1px solid #000;
+} */
+
+.anc {
+    color: #E36414;
+    cursor: pointer;
+}
+
+/* on mobile screens remove both r and l padding for container so that it look good */
+
+@media screen and (max-width: 767px) {
+    .container {
+      border-radius: 0; /* Remove border-radius */
+      box-shadow: none; /* Remove box shadow */
+      padding-right: 0; /* Remove right padding */
+      padding-left: 0; /* Remove left padding */
+      padding-top: 0;
+    }
+  }

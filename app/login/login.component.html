@@ -1,0 +1,155 @@
+<div class="parent">
+  <div class="container my-auto" *ngIf="!showLogin" id="container">
+    <div class="form-container sign-up row">
+      <div class="col-md-5 d-none d-md-block my-auto">
+        <img src="../../assets/Images/SignUP.svg" alt="" class="img-fluid">
+      </div>
+      <div class="col-md-7">
+        <form #registrationForm="ngForm" style="margin-top: 20px;margin-bottom: 20px;">
+          <div class="form-group">
+            <h1 class="mb-4 mt-3 nunito font-weight-bold">Create Account</h1>
+            <div class="det flot-left">
+              <div class="row">
+                <div class="col-md-5">
+                  <p class="m-2 p-2 nunito">Name:</p>
+                </div>
+                <div class="col-md-7">
+                  <input type="text" name="name" class="m-2 p-2 nunito" [(ngModel)]="signUpObj.name" #name="ngModel"
+                    placeholder="Name" required>
+                  <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
+                    <div class="req ml-2 nunito" *ngIf="name.errors?.['required']">
+                      <p style="margin-top: 0;margin-bottom: 0;font-size: 12px;">name is required.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5">
+                  <p class="m-2 p-2 nunito">Phone No.:</p>
+                </div>
+                <div class="col-md-7">
+                  <input type="text" name="phone" class="form-control m-2 p-2 nunito" [(ngModel)]="signUpObj.phone"
+                    #phone="ngModel" placeholder="Phone" required pattern="[0-9]{10}">
+                  <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="text-danger nunito">
+                    <div *ngIf="phone.errors?.['required']" class="req ml-2 nunito">
+                      <p style="margin-top: 0;margin-bottom: 0;font-size: 12px;">phone number is required.</p>
+                    </div>
+                    <div *ngIf="phone.errors?.['pattern']" class="req ml-2 nunito">
+                      <p style="margin-top: 0;margin-bottom: 0;font-size: 12px;">phone number must be 10 digits.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5">
+                  <p class="m-2 p-2 nunito">Email:</p>
+                </div>
+                <div class="col-md-7">
+                  <input type="email" name="email" class="m-2 p-2 nunito" [(ngModel)]="signUpObj.email" #email="ngModel"
+                    placeholder="Email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                  <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+                    <div *ngIf="email.errors?.['required']" class="req ml-2 nunito">
+                      <p style="margin-top: 0;margin-bottom: 0;font-size: 12px;">E-mail is required.</p>
+                    </div>
+                    <div *ngIf="email.errors?.['pattern']" class="req ml-2 nunito">
+                      <p style="margin-top: 0;margin-bottom: 0;font-size: 12px;">Invalid email format.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5">
+                  <p class="m-2 p-2 nunito">Password:</p>
+                </div>
+                <div class="col-md-7">
+                  <input type="password" name="password" class="m-2 p-2 nunito" [(ngModel)]="signUpObj.password"
+                    #password="ngModel" placeholder="Password" required
+                    pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30})">
+                  <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger nunito">
+                    <div *ngIf="password.errors?.['required']" class="req ml-2 nunito">
+                      <p style="margin-top: 0;margin-bottom: 0;font-size: 12px;">password is required.</p>
+                    </div>
+                    <div *ngIf="password.errors?.['pattern']" class="req ml-2 nunito">
+                      <p style="margin-top: 0;margin-bottom: 0;font-size: 12px;">Please Enter Strong Password.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5">
+                  <p class="m-2 p-2 nunito">Confirm Password:</p>
+                </div>
+                <div class="col-md-7">
+                  <input type="password" name="confirmPassword" class="m-2 p-2 nunito"
+                    [(ngModel)]="signUpObj.confirmPassword" #confirmPassword="ngModel" placeholder="Confirm Password"
+                    required>
+                  <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)"
+                    class="text-danger nunito">
+                    <div *ngIf="confirmPassword.errors?.['required']" class="req ml-2 nunito">
+                      <p style="margin-top: 0;margin-bottom: 0;font-size: 12px;">Confirm password is required.</p>
+                    </div>
+                    <div *ngIf="signUpObj.password !== signUpObj.confirmPassword && confirmPassword.dirty"
+                      class="req ml-2 nunito">
+                      <p style="margin-top: 0;margin-bottom: 0;font-size: 12px;">Passwords do not match.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <button [disabled]="registrationForm.invalid" (click)="onRegister()" class="nunito">Sign Up</button>
+            </div>
+            <p class="nunito text-center">Already a Member? <a class="anc" (click)="toggleForm()">Sign In</a> here</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="container my-auto" *ngIf="showLogin" id="container">
+    <div class="form-container sign-in row">
+      <div class="col-md-7">
+        <form style="margin-top: 20px;margin-bottom: 20px;padding-left: 0;">
+          <h1 class="mb-4 mt-3 nunito font-weight-bold">Sign In</h1>
+          <div class="det flot-left">
+            <div class="row">
+              <div class="col-md-5">
+                <p class="m-2 p-2 nunito">Email:</p>
+              </div>
+              <div class="col-md-7">
+                <input type="email" name="email" class="m-2 p-2 nunito" [(ngModel)]="loginObj.email" #email="ngModel"
+                  placeholder="Email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger nunito">
+                  <div *ngIf="email.errors?.['required']" class="req ml-2 nunito">
+                    <p style="margin-top: 0;margin-bottom: 0;font-size: 12px;">E-mail is required.</p>
+                  </div>
+                  <div *ngIf="email.errors?.['pattern']" class="req ml-2 nunito">
+                    <p style="margin-top: 0;margin-bottom: 0;font-size: 12px;">Invalid email format.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-5">
+                <p class="m-2 p-2 nunito">Password:</p>
+              </div>
+              <div class="col-md-7">
+                <input type="password" name="password" class="m-2 p-2 nunito" [(ngModel)]="loginObj.password"
+                  #password="ngModel" placeholder="Password" required>
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger nunito">
+                  <div *ngIf="password.errors?.['required']" class="req ml-2 nunito">
+                    <p style="margin-top: 0;margin-bottom: 0;font-size: 12px;">password is required.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button (click)="onLogin()" class="nunito">Sign In</button>
+          <p class="nunito">Not a Member? <a class="anc" (click)="toggleForm()">Sign Up</a> here</p>
+        </form>
+      </div>
+      <div class="col-md-5 d-none d-md-block my-auto">
+        <img src="../../assets/Images/Signin.svg" alt="" class="img-fluid">
+      </div>
+    </div>
+  </div>
+</div>

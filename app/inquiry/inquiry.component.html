@@ -1,0 +1,119 @@
+<div class="container" style="padding-top: 100px;font-family: 'nunito';">
+ 
+    <p style="font-family: 'Cookie';font-weight: bold;font-size: 50px;text-align: center;margin-bottom: 0;"> Partner with us</p>
+    <form id="myForm1">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Name:<span class="required" style="color: red;">*</span></label>
+            <div class="row">
+                <div class="col-md-3">
+                    <select class="form-control" id="Select1">
+                        <option>Mr</option>
+                        <option>Mrs</option>
+                        <option>Ms</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="fname" name="f_name" #f_name="ngModel" [(ngModel)]="currentUser.f_name" placeholder="First Name" required>
+                    <p *ngIf="f_name.invalid && f_name.touched" style="color: red;">First Name is reqired</p>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="mname" name="m_name" #m_name="ngModel" [(ngModel)]="currentUser.m_name" placeholder="Middal Name" required>
+                    <p *ngIf="m_name.invalid && m_name.touched" style="color: red;">Middle Name is required</p>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="lname" name="l_name" #l_name="ngModel" [(ngModel)]="currentUser.l_name" placeholder="last Name" required>
+                    <p *ngIf="l_name.invalid && l_name.touched" style="color: red;">Last Name is required</p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="age">Age:<span class="required" style="color: red;">*</span></label>
+                    <input type="number" class="form-control" id="age" name="age" #age="ngModel" [(ngModel)]="currentUser.age" placeholder="Enter your age" required>
+                    <p *ngIf="age.invalid && age.touched" style="color: red;">Age is required</p>
+                </div>
+                <div class="col-md-6">
+                    <label for="exampleInputEmail1">Email address:<span class="required" style="color: red;">*</span></label>
+                    <input type="email" class="form-control" name="email" id="exampleInputEmail1" [(ngModel)]="currentUser.email" #email="ngModel" aria-describedby="emailHelp"
+                        placeholder="Enter email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+                          <div *ngIf="email.errors?.['required']" class="req ml-2 nunito"><p style="color: red;">E-mail is required.</p></div>
+                          <div *ngIf="email.errors?.['pattern']" class="req ml-2 nunito"><p style="color: red;">Invalid email format.</p></div>
+                        </div>
+                         
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="phone">Phone:<span class="required" style="color: red;">*</span></label>
+                    <input type="number" class="form-control" name="phone" #phone="ngModel" [(ngModel)]="currentUser.phone" id="phone" placeholder="Enter phone number" required pattern="[0-9]{10}">
+                    <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="text-danger nunito">
+                      <div *ngIf="phone.errors?.['required']" class="req ml-2 nunito"><p style="color: red;">phone number is required.</p></div>
+                      <div *ngIf="phone.errors?.['pattern']" class="req ml-2 nunito"><p style="color: red;">phone number must be 10 digits.</p></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="a_phone">Alternate Phone:<span class="required" style="color: red;">*</span></label>
+                    <input type="number" class="form-control" id="phone2" name="a_phone" #a_phone="ngModel" [(ngModel)]="currentUser.a_phone" placeholder="Enter alternate phone number" required pattern="[0-9]{10}"> 
+                    <div *ngIf="a_phone.invalid && (a_phone.dirty || a_phone.touched)" class="text-danger nunito">
+                      <div *ngIf="a_phone.errors?.['required']" class="req ml-2 nunito"><p style="color: red;">phone number is required.</p></div>
+                      <div *ngIf="a_phone.errors?.['pattern']" class="req ml-2 nunito"><p style="color: red;">phone number must be 10 digits.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="sqnt">Number of stores Interesed in:<span class="required" style="color: red;">*</span></label>
+                    <input type="number" class="form-control" name="label" #label="ngModel" [(ngModel)]="currentUser.label" id="sqnt" required pattern="[1-9]{1}" >
+                    <div *ngIf="label.invalid && (label.dirty || label.touched)" class="text-danger nunito">
+                      <div *ngIf="label.errors?.['required']" class="req ml-2 nunito"><p style="color: red;">must needed</p></div>
+                      <div *ngIf="label.errors?.['pattern']" class="req ml-2 nunito"><p style="color: red;">no more then 10.</p></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label>When do you plan to open your first store? :<span class="required" style="color: red;">*</span></label>
+                    <input type="date" class="form-control"  id="area" #area="ngModel" [(ngModel)]="currentUser.date" name="area" required>
+                    <p *ngIf="area.invalid && area.touched" style="color: red;">Date is required</p>       
+                </div>
+            </div>
+        </div>
+  
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-5">
+                    <label>Business/Industry Experiance:<span class="required" style="color: red;">*</span></label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                            value="option1" checked>
+                        <label class="form-check-label" for="inlineRadio1">Yes, I have prior business
+                            experiance.</label>
+                    </div>
+                    <div class="form-check ">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                            value="option2">
+                        <label class="form-check-label" for="inlineRadio2">No, I am new to business ownership.</label>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <label for="area">Desired business Location:<span class="required" style="color: red;">*</span></label>
+                    <input type="text" class="form-control" id="area">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Tell us about your professional background: </label>
+            <textarea class="form-control" id="tellbg" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Any Questions/Queries: </label>
+            <textarea class="form-control" id="que" rows="2"></textarea>
+        </div>
+        <button type="submit" class="btn" (click)="handleSubmit($event)">Submit</button>
+    </form>
+  </div>
+  

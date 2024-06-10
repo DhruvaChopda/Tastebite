@@ -1,0 +1,320 @@
+<div class="container">
+    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+        <div class="form-group" style="padding-top: 130px;">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p class="font-weight-bold">Select Option:</p>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-check">
+                                            <!-- <input class="form-check-input" type="radio" name="option" id="dineIn" value="dineIn" [(ngModel)]="selectedOption"> -->
+                                            <input class="form-check-input" type="radio" name="option" id="dineIn"
+                                                value="dineIn" [(ngModel)]="selectedOption" #dineIn
+                                                (change)="onRadioButtonChange($event)">
+
+                                            <label for="dineIn">
+                                                Dine In
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="option" id="delivery"
+                                                value="delivery" [(ngModel)]="selectedOption" #delivery
+                                                (change)="onRadioButtonChange($event)">
+                                            <label for="delivery">
+                                                Delivery
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- <p>Selected Option: {{ selectedOption }}</p> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div *ngIf="selectedOption === 'delivery'">
+                            <div class="form-group">
+                                <label class="font-weight-bold">Address:</label>
+
+                                <div>Flat/House No./Building, Appartment Number:
+                                    <input type="text" class="form-control" name="address1" #address1="ngModel"
+                                        [(ngModel)]="currentUser.address1" placeholder="" required>
+                                </div>
+                                <p *ngIf="address1.invalid && address1.touched" style="color: red;">House/Block Number
+                                    is required</p>
+
+                                <div>Area/ Street/ Sector/ Village:
+                                    <input type="text" class="form-control" name="address2" #address2="ngModel"
+                                        [(ngModel)]="currentUser.address2" placeholder="" required>
+                                </div>
+                                <p *ngIf="address2.invalid && address2.touched" style="color: red;">Street name is
+                                    required</p>
+                                <div> Landmark:
+                                    <input type="text" class="form-control" name="address3" #address3="ngModel"
+                                        [(ngModel)]="currentUser.address3" placeholder="" required>
+                                </div>
+                                <p *ngIf="address3.invalid && address3.touched" style="color: red;">Landmark is
+                                    required</p>
+
+                                <div>Township/ City:
+                                    <input type="text" class="form-control" name="address4" #address4="ngModel"
+                                        [(ngModel)]="currentUser.address4" placeholder="" required>
+                                </div>
+                                <p *ngIf="address4.invalid && address4.touched" style="color: red;">City name is
+                                    required</p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        State:
+                                        <input type="text" class="form-control" name="address6" #address6="ngModel"
+                                            [(ngModel)]="currentUser.address6" placeholder="" required>
+                                        <p *ngIf="address6.invalid && address6.touched" style="color: red;">State name
+                                            is required</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        Pincode:
+                                        <input type="number" class="form-control" name="address7" pattern="^[0-9]{6}$"
+                                            #address7="ngModel" [(ngModel)]="currentUser.address7" placeholder=""
+                                            required>
+                                        <div *ngIf="address7.invalid && (address7.dirty || address7.touched)">
+                                            <div *ngIf="address7.errors?.['required']">
+                                                <p style="color: red;">Pincode is required.</p>
+                                            </div>
+                                            <div *ngIf="address7.errors?.['pattern']">
+                                                <p style="color: red;">Pincode should be exactly 6 digits.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div *ngIf="selectedOption === 'dineIn' || selectedOption === 'delivery'">
+                            <p class="font-weight-bold">Payment Option:</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="payment" id="cash" value="cash"
+                                    [(ngModel)]="selectedPaymentOption">
+                                <label for="cash">
+                                    Cash
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="payment" id="online" value="online"
+                                    [(ngModel)]="selectedPaymentOption">
+                                <label for="online">
+                                    Online Payment
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="selectedOption === 'dineIn'|| selectedOption === 'delivery'">
+                        <div *ngIf="selectedPaymentOption === 'online'">
+                            <div class="row mb-3">
+                                <button [disabled]="userForm.invalid" class="btn mr-2" (click)="pay(total)">Pay
+                                    with Razorpay</button>
+                                <!-- <google-pay-button environment="TEST" buttonType="buy" buttonColor="black"
+                                    [paymentRequest]="{
+                                      apiVersion: 2,
+                                      apiVersionMinor: 0,
+                                      allowedPaymentMethods: [
+                                        {
+                                          type: 'CARD',
+                                          parameters: {
+                                            allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+                                            allowedCardNetworks: ['AMEX', 'VISA', 'MASTERCARD']
+                                          },
+                                          tokenizationSpecification: {
+                                            type: 'PAYMENT_GATEWAY',
+                                            parameters: {
+                                              gateway: 'example',
+                                              gatewayMerchantId: 'exampleGatewayMerchantId'
+                                            }
+                                          }
+                                        }
+                                      ],
+                                      merchantInfo: {
+                                        merchantId: '12345678901234567890',
+                                        merchantName: 'Demo Merchant'
+                                      },
+                                      transactionInfo: {
+                                        totalPriceStatus: 'FINAL',
+                                        totalPriceLabel: 'Total',
+                                        totalPrice: '100.00',
+                                        currencyCode: 'USD',
+                                        countryCode: 'US'
+                                      }
+                                    }" (loadpaymentdata)="onLoadPaymentData($event)"></google-pay-button> -->
+                                <button type="button" class="btn" data-toggle="modal" data-target="#myModal"
+                                    [disabled]="userForm.invalid"> QR</button>
+                                <div class="modal mt-1" id="myModal">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Scan Me</h4>
+                                                <button type="button" class="btn close" style="border: none;"
+                                                    data-dismiss="modal" (click)="closeQRCodeModal()">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <img src="../../assets/Images/qr_1.jpg" class='img-fluid w-100' alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <div class="container">
+                            <div *ngIf="cartData">
+                                <table>
+                                    <tr class="font-weight-bold">
+                                        <th>Name</th>
+                                        <th>Rate</th>
+                                        <th>Quantity</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                    <tr *ngFor="let item of cartData">
+                                        <td>{{item.productName}}</td>
+                                        <td>{{item.prize | currency:'INR'}}</td>
+                                        <td>{{item.qnt}}</td>
+                                        <td>{{item.qnt * item.prize | currency:'INR'}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row ml-md-2">
+                            <div class="col col-md-6">Sub Total:</div>
+                            <div class="col col-md-6">{{stotal | currency:'INR'}}</div>
+                        </div>
+                        <div class="row ml-md-2">
+                            <div class="col col-md-6">GST(18%):</div>
+                            <div class="col col-md-6">{{gst | currency:'INR'}}</div>
+                        </div>
+                        <div *ngIf="selectedOption === 'delivery'">
+                            <div class="row ml-md-2">
+                                <div class="col col-md-6">Delivery fees:</div>
+                                <div class="col col-md-6">{{ Dfees | currency:'INR'}}</div>
+                            </div>
+                        </div>
+                        <hr style="border-color: black; border-width: 1px;" class="mb-0 p-0">
+                        <hr style="border-color: black; border-width: 1px;" class="mt-1 pt-0">
+                        <div>
+                            <div class="row ml-md-2">
+                                <div class="col col-md-6">Total:</div>
+                                <div class="col col-md-6">{{ total | currency:'INR' }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="paymentSuccess || selectedPaymentOption=='cash'">
+            <button class="btn" (click)="makePDF()">Print Bill</button>
+        </div>
+    </form>
+</div>
+
+<!--=======================================-->
+
+
+<div *ngIf="paymentSuccess || selectedPaymentOption=='cash'" id="content" #content>
+    <div class="invoice">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Tastebite Restaurant</h2>
+                <p>123 Street, City, Country</p>
+                <p>Email: info@tastebite.com</p>
+                <p>Phone: 123-456-7890</p>
+            </div>
+            <div class="col-md-4 logo text-md-right d-none d-sm-block">
+                <img src="../../assets/Images/logo.png" alt="Company Logo" class="img-fluid">
+            </div>
+        </div>
+        <div class="details row">
+            <div class="client-details col-md-6">
+                <h3>Client Details</h3>
+                <p>Client Name: {{currentUser.name}} </p>
+                <p>Client Email: {{currentUser.email}} </p>
+                <p>Client Phone: {{currentUser.phone}}</p>
+            </div>
+            <div class="col-md-6 text-md-right">
+                <p>Invoice Number: 001</p>
+                <p>Date: {{myDate }}</p>
+                <p>Payment Type: {{selectedPaymentOption}} </p>
+            </div>
+        </div>
+
+        <div class="table">
+            <div *ngIf="cartData">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Name</th>
+                        <th>Rate (INR)</th>
+                        <th>Quantity</th>
+                        <th>Amount (INR)</th>
+                    </tr>
+                    <tr *ngFor="let item of cartData">
+                        <td>{{item.productName}}</td>
+                        <td>{{item.prize}}</td>
+                        <td>{{item.qnt}}</td>
+                        <td>{{item.qnt * item.prize}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-6">
+                <div class="row">
+                    <div class="col-6">Sub Total:</div>
+                    <div class="col-6">{{stotal}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-6">GST(18%):</div>
+                    <div class="col-6">{{gst}}</div>
+                </div>
+                <div *ngIf="selectedOption === 'delivery'" class="row">
+                    <div class="col-6">Delivery fees:</div>
+                    <div class="col-6">{{ Dfees}}</div>
+                </div>
+                <hr class="mb-0">
+                <hr class="mt-1">
+                <div class="row">
+                    <div class="col-6">Total(INR):</div>
+                    <div class="col-6">{{ total }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-around mt-4">
+            <div class="col-md-4">
+                <div class="row" style="justify-content: center;">
+                    <img src="../../assets/Images/phone.png" style="height:20px;width: 20px;">
+                    <p class="ml-2 mb-0">+91 123-456-7890</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row" style="justify-content: center;">
+                    <img src="../../assets/Images/mail.png" style="height:20px;width: 20px;">
+                    <p class="ml-2 mb-0">info@tastebite.com</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row" style="justify-content: center;">
+                    <img src="../../assets/Images/insta.png" style="height:20px;width: 20px;">
+                    <p class="ml-2 mb-0">tastebite_2003</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

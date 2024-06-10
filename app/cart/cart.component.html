@@ -1,0 +1,58 @@
+<div class="noMatch" *ngIf="getCartDetails.length === 0 else cart">
+  <img src="../../assets/Images/cart1.png" alt="" class="img-fluid custom-img mb-3">
+  <p style="color: rgb(172, 167, 167);" class="nunito">Your cart is Empty!</p>  
+  <div><button class="btn btn-danger nunito" (click)="gotoMenu()">Continue Shopping</button></div>
+</div>
+<ng-template #cart>
+  <div class="container">
+    <div *ngIf="getCartDetails">
+      <table class="nunito">
+        <tr>
+          <th class="col-md-2 d-none d-sm-table-cell">Image</th>
+          <th class="col-md-3 ">Name</th>
+          <th class="col-md-2 col-sm-3 d-none d-sm-table-cell">Price</th>
+          <th class="col-md-2 col-sm-3">Quantity</th>
+          <th class="col-md-2 col-sm-3">Sub Total</th>
+          <th class="col-md-1">Remove Item</th>
+        </tr>
+        <tr *ngFor="let getCartDetail of getCartDetails">
+          <td class="col-md-2 d-none d-sm-table-cell">
+            <img src="{{getCartDetail.image}}" alt=""/>
+          </td>
+          <td class="col-md-3">
+            {{getCartDetail.productName}}
+          </td>
+          <td class="col-md-2 col-sm-3 d-none d-sm-table-cell">
+            {{getCartDetail.prize | currency:'INR'}}
+          </td>
+          <td class="col-md-2 col-sm-4 p-0">
+            <div class="content">
+              <button type="button" class=" in"><i class="fa fa-minus " (click)="decQnt(getCartDetail.productId, getCartDetail.qnt)" ></i></button>
+              {{getCartDetail.qnt}}
+              <button type="button" class=" in"><i class="fa fa-plus" (click)="incQnt(getCartDetail.productId, getCartDetail.qnt)"></i></button>
+            </div>
+          </td>
+          <td class="col-md-2">
+            {{getCartDetail.qnt * getCartDetail.prize | currency:'INR'}}
+          </td>
+          <td class="col-md-1"> 
+            <button type="button" class="delete" (click)="singleDelete(getCartDetail.productId)"><i class="fa fa-trash-o" style="font-size:24px;color:black;background-color:aliceblue;"></i></button>
+          </td>
+        </tr>
+      </table>
+      <div class="row mt-3 nunito">
+        <div class="col-md-6 mt-2">
+          
+          <button class="btn btn1 mr-2" (click)="gotoMenu()">Continue Shopping</button>
+          <button class="btn btn1 mr-2" (click)="removeall()">Remove All Item</button>
+        </div>
+        <div class="col-md-6 text-right">
+          <div class="row float-md-right align-items-center pl-3 mt-2">
+            <p class="mr-2 mb-0">Total: {{total | currency:'INR'}}</p>
+          <button class="btn" (click)="checkout()">Checkout</button>
+          </div>  
+        </div>      
+      </div>        
+    </div>
+  </div>
+</ng-template>
